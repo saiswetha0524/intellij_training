@@ -21,7 +21,9 @@ public class MySQLConnectionExample {
         }
 
         // Establish a connection
-        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
+        try (
+                Connection connection = DriverManager.getConnection(jdbcUrl, username, password)
+        ) {
             System.out.println("Connected to MySQL database!");
 
             // Your database operations go here...
