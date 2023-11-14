@@ -31,7 +31,8 @@ public class EleAdd {
             int rem = n - arr[i];
             if (hm.containsKey(rem)) {
 
-                System.out.println("the indexes are: " +hm.get(rem)+" "+i);
+                System.out.println("the indexes are: " +hm.get(rem)+" and "+i);
+                System.out.println("the value are: " +rem+" and "+arr[i]);
             }
             hm.put(arr[i], i);
 
