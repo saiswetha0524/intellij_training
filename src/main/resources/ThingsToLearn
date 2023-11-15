@@ -1,0 +1,87 @@
+JAVA
+----
+unboxing and autoboxing
+sql injection- practice
+deadlock sum
+sum of two ele using hashmap
+
+Composition, association and aggregation
+Metaspace
+Bouncy castle dependency and bouncy cluster model
+Approach for online document digital signature
+Thread Dump and heap dump
+Dom
+
+
+TECHS TO LEARN
+--------------
+java
+gradle
+git
+swagger
+hibernate
+springboot
+database
+docker
+kubernetes
+ci/cd
+
+Kibana
+Splunk
+Msg technique- jms, ibm mq, Kafka
+Build tools- maven, gradle,Ant
+Sdlc tools- sonar,jenkins
+Soap
+Junit
+Server - tomcat, jboss
+DB - MySQL,oracle
+NoSQL - mongo, couch
+Writing query
+Prometheus
+
+
+TUTORIALS
+---------
+git video
+springboot video
+
+
+
+MICROSERVICES
+-------------
+Microservices architecture
+what is MVC model
+Cross origin resource sharing
+Circuit breaker working
+Handling transactions in microservices
+Logging in microservices
+How to secure microservices
+Cap theorem in microservices
+Saga pattern
+Orchestration and choreography approach
+Event driven model in microservices
+Build design patterns
+
+
+
+SPRINGBOOT
+----------
+Response entity?
+Two phase commit
+Load balancing
+Transactional annotation in SB
+Eureka
+Prototype beans?
+Authentication and security Authorization in spring framework
+Jason web tokens
+Transactions management in API
+@pathparam @pathvariable
+Jpa and its advantages
+One to one and one to many mapping
+Left outer join
+
+CLOUD
+-----
+AWS/Azure
+elastic cloud
+s3
