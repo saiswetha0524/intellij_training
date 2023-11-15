@@ -25,6 +25,8 @@ database
 docker
 kubernetes
 ci/cd
+websocket
+postman
 
 Kibana
 Splunk
@@ -44,7 +46,7 @@ TUTORIALS
 ---------
 git video
 springboot video
-
+Hibernate - https://www.youtube.com/watch?v=JR7-EdxDSf0
 
 
 MICROSERVICES
