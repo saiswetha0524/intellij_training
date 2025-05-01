@@ -1,0 +1,11 @@
+int n 8
+int first 0
+int sec 1
+int third
+sop first
+sop second
+for int i 3, I <_n i++
+third = first + sec
+sop third
+first = sec
+sec = third
