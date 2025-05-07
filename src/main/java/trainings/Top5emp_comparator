@@ -1,0 +1,67 @@
+ChatGPT
+You said:
+Top 5 employees based on salary maximum in java 8 and normal java
+ChatGPT said:
+To get the top 5 employees based on maximum salary in Java, you can use two different approaches:
+
+✅ 1. Java 8 (Streams)
+Assuming you have a class like:
+
+class Employee {
+    private String name;
+    private double salary;
+
+    // constructor, getters, setters
+}
+Here's how you can find the top 5 highest paid employees using Java 8:
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Employee> employees = Arrays.asList(
+            new Employee("Alice", 70000),
+            new Employee("Bob", 90000),
+            new Employee("Charlie", 80000),
+            new Employee("David", 95000),
+            new Employee("Eve", 85000),
+            new Employee("Frank", 92000)
+        );
+
+        List<Employee> top5 = employees.stream()
+            .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+            .limit(5)
+            .collect(Collectors.toList());
+
+        top5.forEach(e -> System.out.println(e.getName() + " - $" + e.getSalary()));
+    }
+}
+✅ 2. Normal Java (Pre-Java 8)
+You would use traditional sorting with Collections.sort:
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Employee> employees = new ArrayList<Employee>();
+        employees.add(new Employee("Alice", 70000));
+        employees.add(new Employee("Bob", 90000));
+        employees.add(new Employee("Charlie", 80000));
+        employees.add(new Employee("David", 95000));
+        employees.add(new Employee("Eve", 85000));
+        employees.add(new Employee("Frank", 92000));
+
+        Collections.sort(employees, new Comparator<Employee>() {
+            public int compare(Employee e1, Employee e2) {
+                return Double.compare(e2.getSalary(), e1.getSalary()); // Descending
+            }
+        });
+
+        for (int i = 0; i < Math.min(5, employees.size()); i++) {
+            Employee e = employees.get(i);
+            System.out.println(e.getName() + " - $" + e.getSalary());
+        }
+    }
+}
+Would you like me to generate a full class for Employee as well?
