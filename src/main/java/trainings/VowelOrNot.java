@@ -39,3 +39,49 @@ public class VowelOrNot {
 	}
 
 }
+
+
+
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class FullVowelProgram {
+
+    public static void main(String[] args) {
+
+        String name = "Saiswetha";
+
+        // Convert array → Set
+        Set<String> vowels = new HashSet<>(Arrays.asList("a", "e", "i", "o", "u"));
+
+        // 1. Print vowels
+        System.out.println("Vowels:");
+        Arrays.stream(name.split(""))
+              .filter(ch -> vowels.contains(ch.toLowerCase()))
+              .forEach(System.out::println);
+
+        // 2. Count total vowels
+        long count =
+                Arrays.stream(name.split(""))
+                      .filter(ch -> vowels.contains(ch.toLowerCase()))
+                      .count();
+        System.out.println("Total vowels: " + count);
+
+        // 3. Frequency map
+        Map<String, Long> freq =
+                Arrays.stream(name.split(""))
+                      .map(String::toLowerCase)
+                      .filter(vowels::contains)
+                      .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+        System.out.println("Frequency: " + freq);
+
+        // 4. List of vowels
+        List<String> list =
+                Arrays.stream(name.split(""))
+                      .filter(ch -> vowels.contains(ch.toLowerCase()))
+                      .toList();
+        System.out.println("List: " + list);
+    }
+}
+
