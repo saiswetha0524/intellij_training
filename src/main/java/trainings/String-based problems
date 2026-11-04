@@ -1,0 +1,292 @@
+Reverse a string
+Problem statement
+
+Reverse a given string without using a built-in reverse method.
+
+Input:
+String str = "hello";
+
+
+Expected output:
+olleh
+
+
+A. Approach and logic
+Start from the last character and move towards the first character.
+
+Append each character to a new string.
+B. Plain Java
+String str = "hello";
+
+StringBuilder reverse = new StringBuilder();
+
+for (int i = str.length() - 1; i >= 0; i--) {
+
+    reverse.append(str.charAt(i));
+}
+
+System.out.println(reverse.toString());
+
+
+Why use StringBuilder?
+
+Strings are immutable in Java. Repeated string concatenation creates intermediate String objects. StringBuilder is mutable and avoids that overhead.
+C. Java 8
+String str = "hello";
+
+String reverse = IntStream.range(0, str.length())
+        .mapToObj(i -> String.valueOf(
+                str.charAt(str.length() - 1 - i)))
+        .collect(Collectors.joining());
+
+System.out.println(reverse);
+
+
+D. Complexity
+Solution	Time	Extra space
+StringBuilder	O(n)	O(n)
+Java 8	O(n)	O(n)
+
+E. Choice of solution
+Use StringBuilder for a straightforward and efficient solution.
+
+
+
+
+
+
+
+
+
+
+
+
+Find the first non-repeated character
+Problem statement
+
+Find the first character that occurs only once in a string.
+
+Input:
+String str = "swiss";
+
+
+Expected output:
+w
+
+
+A. Approach and logic
+We need to count the occurrences of each character while preserving the original order.
+
+Use LinkedHashMap.
+
+Why?
+- HashMap stores key-value pairs but doesn't guarantee insertion order.
+- LinkedHashMap maintains insertion order.
+Steps:
+1. Traverse the string.
+2. Count every character.
+3. Traverse the map.
+4. Return the first character whose frequency is 1.
+B. Plain Java
+String str = "swiss";
+
+Map<Character, Integer> map = new LinkedHashMap<>();
+
+for (char ch : str.toCharArray()) {
+
+    map.put(ch, map.getOrDefault(ch, 0) + 1);
+}
+
+for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+
+    if (entry.getValue() == 1) {
+
+        System.out.println(entry.getKey());
+        break;
+    }
+}
+
+
+C. Dry run
+Character	Frequency
+s	3
+w	1
+i	1
+
+Original order: s, w, i.
+
+The first character with frequency 1 is w.
+D. Java 8
+String str = "swiss";
+
+Character result = str.chars()
+        .mapToObj(c -> (char) c)
+        .collect(Collectors.groupingBy(
+                c -> c,
+                LinkedHashMap::new,
+                Collectors.counting()
+        ))
+        .entrySet()
+        .stream()
+        .filter(entry -> entry.getValue() == 1)
+        .map(Map.Entry::getKey)
+        .findFirst()
+        .orElse(null);
+
+System.out.println(result);
+
+
+E. Complexity
+Solution	Time	Extra space
+LinkedHashMap	O(n)	O(k)
+Java 8	O(n)	O(k)
+
+Here k is the number of distinct characters.
+F. Choice of solution
+Use LinkedHashMap because it clearly demonstrates frequency counting and insertion-order preservation.
+
+Interview follow-up: What if the interviewer asks for the first repeated character instead?
+
+Change the condition to check whether the character has already appeared while traversing the string, or find the first character with frequency greater than one while preserving insertion order.
+
+
+
+
+
+
+Check whether two strings are anagrams
+Problem statement
+
+Check whether two strings contain the same characters with the same frequencies.
+
+Input:
+String str1 = "listen";
+String str2 = "silent";
+
+
+Expected output:
+Anagram
+
+
+A. Approach and logic
+Two strings are anagrams if their sorted character arrays are identical.
+
+Steps:
+1. Convert both strings into character arrays.
+2. Sort both arrays.
+3. Compare the sorted arrays.
+4. If equal, they are anagrams.
+B. Plain Java
+String str1 = "listen";
+String str2 = "silent";
+
+char[] arr1 = str1.toCharArray();
+char[] arr2 = str2.toCharArray();
+
+Arrays.sort(arr1);
+Arrays.sort(arr2);
+
+if (Arrays.equals(arr1, arr2)) {
+    System.out.println("Anagram");
+} else {
+    System.out.println("Not Anagram");
+}
+
+
+C. Java 8
+String str1 = "listen";
+String str2 = "silent";
+
+boolean result = str1.length() == str2.length()
+        && Arrays.equals(
+                str1.chars().sorted().toArray(),
+                str2.chars().sorted().toArray()
+        );
+
+System.out.println(result ? "Anagram" : "Not Anagram");
+
+
+D. Complexity
+Solution	Time	Extra space
+Sorting	O(n log n)	O(n)
+Java 8 sorting	O(n log n)	O(n)
+
+E. Choice of solution
+Both are good.
+
+If the interviewer asks for a more optimized approach, use character frequency counting with an array or HashMap.
+
+For example, if the input contains only lowercase English letters, a frequency array of size 26 can achieve O(n) time and O(1) auxiliary space.
+
+Important: The above solutions are case-sensitive and consider spaces as characters. Normalize the input first if the requirement is case-insensitive or ignores spaces.
+
+Question 16: Count vowels and consonants
+Problem statement
+
+Count the number of vowels and consonants in a string.
+
+Input:
+String str = "hello world";
+
+
+Expected output:
+Vowels = 3
+Consonants = 7
+
+
+A. Approach and logic
+Traverse every character.
+- If it is a letter, check whether it belongs to aeiou.
+- If yes, increment vowels.
+- Otherwise, increment consonants.
+- Ignore spaces, numbers and special characters.
+B. Plain Java
+String str = "hello world";
+
+int vowels = 0;
+int consonants = 0;
+
+for (char ch : str.toLowerCase().toCharArray()) {
+
+    if (ch >= 'a' && ch <= 'z') {
+
+        if ("aeiou".indexOf(ch) != -1) {
+            vowels++;
+        } else {
+            consonants++;
+        }
+    }
+}
+
+System.out.println("Vowels = " + vowels);
+System.out.println("Consonants = " + consonants);
+
+
+C. Java 8
+String str = "hello world";
+
+long vowels = str.toLowerCase()
+        .chars()
+        .filter(c -> "aeiou".indexOf(c) != -1)
+        .count();
+
+long consonants = str.toLowerCase()
+        .chars()
+        .filter(c -> c >= 'a' && c <= 'z')
+        .filter(c -> "aeiou".indexOf(c) == -1)
+        .count();
+
+System.out.println("Vowels = " + vowels);
+System.out.println("Consonants = " + consonants);
+
+
+D. Complexity
+Solution	Time	Extra space
+Plain Java	O(n)	O(n) for lowercase copy
+Java 8	O(n)	O(n) for lowercase copy and stream processing
+
+The additional space can be O(1) if we avoid creating a lowercase copy and use case-insensitive character checks.
+E. Choice of solution
+Use the loop for a simple, efficient implementation.
+
+Use Streams when demonstrating filtering and counting.
