@@ -1,0 +1,109 @@
+check if a string is palindrome - madam
+plain java
+----------
+public class StringPalindrome {
+
+    public static void main(String[] args) {
+
+        String str = "madam";
+
+        int left = 0;
+        int right = str.length() - 1;
+
+        boolean isPalindrome = true;
+
+        while (left < right) {
+
+            if (str.charAt(left) != str.charAt(right)) {
+
+                isPalindrome = false;
+                break;
+            }
+
+            left++;
+            right--;
+        }
+
+        System.out.println(
+                isPalindrome ? "Palindrome" : "Not Palindrome"
+        );
+    }
+}
+
+java 8
+-----
+String str = "madam";
+
+boolean result = IntStream.range(0, str.length() / 2)
+        .allMatch(i ->
+                str.charAt(i) == str.charAt(str.length() - 1 - i)
+        );
+
+System.out.println(result ? "Palindrome" : "Not Palindrome");
+
+
+
+E. Complexity
+Solution	Time	Extra space
+Two pointers	O(n)	O(1)
+Java 8	O(n)	O(1) auxiliary space, excluding stream overhead
+
+
+Use two pointers in interviews when optimization is important.
+
+It avoids creating a separate reversed string.
+
+
+
+Check whether a number is a palindrome
+--------------------------------------
+
+java 
+public class NumberPalindrome {
+
+    public static void main(String[] args) {
+
+        int num = 121;
+
+        int original = num;
+        int reverse = 0;
+
+        while (num > 0) {
+
+            int digit = num % 10;
+
+            reverse = reverse * 10 + digit;
+
+            num = num / 10;
+        }
+
+        if (original == reverse) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not Palindrome");
+        }
+    }
+}
+
+java8
+
+int num = 121;
+
+String str = String.valueOf(num);
+
+boolean result = IntStream.range(0, str.length() / 2)
+        .allMatch(i ->
+                str.charAt(i) == str.charAt(str.length() - 1 - i)
+        );
+
+System.out.println(result ? "Palindrome" : "Not Palindrome");
+
+
+
+E. Complexity
+Solution	Time	Extra space
+Mathematical reversal	O(d)	O(1)
+Java 8 string approach	O(d)	O(d)
+
+Here, d is the number of digits.
+
