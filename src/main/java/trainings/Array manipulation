@@ -1,0 +1,210 @@
+Array manipulation
+
+plain java
+-----------
+qn 1- Reverse an array
+
+Use the two-pointer technique.
+- One pointer starts at index 0.
+- Another pointer starts at the last index.
+- Swap both elements.
+- Move the pointers towards each other.
+- Stop when they meet.
+
+import java.util.Arrays;
+
+public class ReverseArray {
+
+    public static void main(String[] args) {
+
+        int[] arr = {10, 20, 30, 40, 50};
+
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left < right) {
+
+            int temp = arr[left];
+
+            arr[left] = arr[right];
+
+            arr[right] = temp;
+
+            left++;
+            right--;
+        }
+
+        System.out.println(Arrays.toString(arr));
+    }
+}
+
+
+
+java8
+
+int[] arr = {10, 20, 30, 40, 50};
+
+int[] reversed = IntStream.range(0, arr.length)
+        .map(i -> arr[arr.length - 1 - i])
+        .toArray();
+
+System.out.println(Arrays.toString(reversed));
+
+
+
+E. Complexity
+Solution	Time	Extra space
+Two pointers	O(n)	O(1)
+Java 8	O(n)	O(n)
+
+F. Choice of solution
+Two pointers are better because they reverse the original array in place.
+
+The Java 8 version creates a new array.
+
+
+
+qn 2- Remove duplicates from an array
+
+A LinkedHashSet is suitable because:
+- It does not allow duplicate elements.
+- It preserves insertion order.
+
+plain java
+int[] arr = {1, 2, 3, 2, 4, 3, 5};
+
+Set<Integer> set = new LinkedHashSet<>();
+
+for (int num : arr) {
+    set.add(num);
+}
+
+int[] result = new int[set.size()];
+
+int index = 0;
+
+for (int num : set) {
+    result[index++] = num;
+}
+
+System.out.println(Arrays.toString(result));
+
+
+
+java 8
+int[] arr = {1, 2, 3, 2, 4, 3, 5};
+
+int[] result = Arrays.stream(arr)
+        .distinct()
+        .toArray();
+
+System.out.println(Arrays.toString(result));
+
+D. Complexity
+Solution	Time	Extra space
+LinkedHashSet	O(n) average	O(n)
+Java 8 distinct	O(n) average	O(n)
+
+E. Choice of solution
+Use LinkedHashSet for explicit collection-based logic.
+
+Use distinct() when writing Java 8 Stream code.
+
+
+qn 3- Move all zeros to the end of an array
+
+It represents the next position where a non-zero element should be placed.
+1. Traverse the array.
+2. Whenever a non-zero element is found, place it at arr[index].
+3. Increment index.
+4. After processing all non-zero elements, fill the remaining positions with zero.
+
+int[] arr = {0, 1, 0, 3, 12};
+
+int index = 0;
+
+for (int num : arr) {
+
+    if (num != 0) {
+        arr[index++] = num;
+    }
+}
+
+while (index < arr.length) {
+    arr[index++] = 0;
+}
+
+System.out.println(Arrays.toString(arr));
+
+
+java 8
+-------
+int[] arr = {0, 1, 0, 3, 12};
+
+int[] result = IntStream.concat(
+        Arrays.stream(arr).filter(n -> n != 0),
+        Arrays.stream(arr).filter(n -> n == 0)
+).toArray();
+
+System.out.println(Arrays.toString(result));
+
+
+E. Complexity
+Solution	Time	Extra space
+In-place approach	O(n)	O(1)
+Java 8	O(n)	O(n)
+
+F. Choice of solution
+Use the in-place approach.
+
+It is optimal in terms of time and auxiliary space.
+
+
+qn 4 - Find the missing number in an array
+
+sum = n[n+1]/2
+sum = 6[7+2]/21
+1+2+4+5+6=18
+21-18=3
+
+plain java
+--------\
+int[] arr = {1, 2, 4, 5, 6};
+
+int n = 6;
+
+int expectedSum = n * (n + 1) / 2;
+
+int actualSum = 0;
+
+for (int num : arr) {
+    actualSum += num;
+}
+
+System.out.println(expectedSum - actualSum);
+
+java 8
+---------
+int[] arr = {1, 2, 4, 5, 6};
+
+int n = 6;
+
+int actualSum = Arrays.stream(arr).sum();
+
+int expectedSum = IntStream.rangeClosed(1, n).sum();
+
+System.out.println(expectedSum - actualSum);
+
+D. Complexity
+Solution	Time	Extra space
+Plain Java	O(n)	O(1)
+Java 8	O(n)	O(1) auxiliary space
+
+E. Choice of solution
+Both approaches are efficient.
+
+Use the mathematical formula when the input constraints are clear.
+
+For very large integer ranges, consider long to prevent integer overflow.
+
+
