@@ -1,0 +1,161 @@
+Find the second-highest distinct number
+Problem statement
+
+Find the second-largest distinct number in an array.
+
+Input:
+int[] arr = {10, 20, 5, 40, 30};
+
+
+Expected output:
+30
+
+
+A. Approach and logic
+We maintain two variables:
+- highest: Stores the largest number.
+- secondHighest: Stores the second-largest distinct number.
+For every number:
+1. If it is greater than highest, move highest into secondHighest.
+2. Update highest.
+3. Otherwise, if it is smaller than highest but greater than secondHighest, update secondHighest.
+B. Plain Java
+int[] arr = {10, 20, 5, 40, 30};
+
+int highest = Integer.MIN_VALUE;
+int secondHighest = Integer.MIN_VALUE;
+
+for (int num : arr) {
+
+    if (num > highest) {
+
+        secondHighest = highest;
+        highest = num;
+
+    } else if (num > secondHighest && num < highest) {
+
+        secondHighest = num;
+    }
+}
+
+if (secondHighest == Integer.MIN_VALUE) {
+    System.out.println("Second highest doesn't exist");
+} else {
+    System.out.println(secondHighest);
+}
+
+
+For production-quality handling, use a separate boolean or OptionalInt to distinguish a missing second value from an actual Integer.MIN_VALUE.
+C. Dry run
+Current value	Highest	Second highest
+10	10	-∞
+20	20	10
+5	20	10
+40	40	20
+30	40	30
+
+D. Java 8
+int[] arr = {10, 20, 5, 40, 30};
+
+OptionalInt result = Arrays.stream(arr)
+        .distinct()
+        .boxed()
+        .sorted(Comparator.reverseOrder())
+        .skip(1)
+        .mapToInt(Integer::intValue)
+        .findFirst();
+
+System.out.println(result.orElse(-1));
+
+
+Here -1 is just a demonstration fallback; use isPresent() or orElseThrow() if -1 could itself be a valid answer.
+E. Complexity
+Solution	Time	Extra space
+Single loop	O(n)	O(1)
+Java 8 sorting	O(n log n)	O(n)
+
+F. Choice of solution
+Use the single-loop solution.
+
+It is faster, uses constant extra space and demonstrates good problem-solving skills.
+
+Important follow-up: What happens if the array is {10, 10, 10}?
+
+There is no second-highest distinct number.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Find largest and smallest elements
+Problem statement
+
+Find the minimum and maximum elements in an array.
+
+Input:
+int[] arr = {10, 5, 40, 2, 90, 15};
+
+
+Expected output:
+Largest = 90
+Smallest = 2
+
+
+A. Approach and logic
+Initialize both minimum and maximum with the first array element.
+
+Traverse the array and update them whenever you find a smaller or larger value.
+B. Plain Java
+int[] arr = {10, 5, 40, 2, 90, 15};
+
+int max = arr[0];
+int min = arr[0];
+
+for (int num : arr) {
+
+    if (num > max) {
+        max = num;
+    }
+
+    if (num < min) {
+        min = num;
+    }
+}
+
+System.out.println("Largest = " + max);
+System.out.println("Smallest = " + min);
+
+
+C. Java 8
+int[] arr = {10, 5, 40, 2, 90, 15};
+
+OptionalInt max = Arrays.stream(arr).max();
+
+OptionalInt min = Arrays.stream(arr).min();
+
+System.out.println("Largest = " + max.getAsInt());
+System.out.println("Smallest = " + min.getAsInt());
+
+
+OptionalInt is used because an array may be empty.
+D. Complexity
+Solution	Time	Extra space
+Plain Java	O(n)	O(1)
+Java 8	O(n)	O(1) auxiliary space
+
+E. Choice of solution
+Both are efficient.
+
+For Java 8 interviews, remember max(), min() and OptionalInt.
