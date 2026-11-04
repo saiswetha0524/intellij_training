@@ -1,0 +1,14 @@
+Data structure / operation	Average time complexity
+Array access by index	O(1)
+Array search	O(n)
+ArrayList get(index)	O(1)
+ArrayList contains()	O(n)
+HashSet add()	O(1)
+HashSet contains()	O(1)
+HashMap get()	O(1)
+HashMap put()	O(1)
+TreeSet add()	O(log n)
+TreeMap get()	O(log n)
+Sorting	O(n log n)
+
+These are average-case complexities where applicable. HashMap and HashSet operations can degrade to O(n) in collision-heavy worst cases.
