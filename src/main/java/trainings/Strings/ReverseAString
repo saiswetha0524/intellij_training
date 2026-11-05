@@ -1,0 +1,63 @@
+Reverse a string
+Problem statement
+
+Reverse a given string without using a built-in reverse method.
+
+Input:
+String str = "hello";
+
+
+Expected output:
+olleh
+
+
+A. Approach and logic
+Start from the last character and move towards the first character.
+
+Append each character to a new string.
+B. Plain Java
+String str = "hello";
+
+StringBuilder reverse = new StringBuilder();
+
+for (int i = str.length() - 1; i >= 0; i--) {
+
+    reverse.append(str.charAt(i));
+}
+
+System.out.println(reverse.toString());
+
+
+Why use StringBuilder?
+
+Strings are immutable in Java. Repeated string concatenation creates intermediate String objects. StringBuilder is mutable and avoids that overhead.
+C. Java 8
+String str = "hello";
+
+String reverse = IntStream.range(0, str.length())
+        .mapToObj(i -> String.valueOf(
+                str.charAt(str.length() - 1 - i)))
+        .collect(Collectors.joining());
+
+System.out.println(reverse);
+
+
+D. Complexity
+Solution	Time	Extra space
+StringBuilder	O(n)	O(n)
+Java 8	O(n)	O(n)
+
+E. Choice of solution
+Use StringBuilder for a straightforward and efficient solution.
+
+
+
+
+
+
+
+
+
+
+
+

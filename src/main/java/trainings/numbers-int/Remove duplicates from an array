@@ -1,0 +1,44 @@
+A LinkedHashSet is suitable because:
+- It does not allow duplicate elements.
+- It preserves insertion order.
+
+plain java
+int[] arr = {1, 2, 3, 2, 4, 3, 5};
+
+Set<Integer> set = new LinkedHashSet<>();
+
+for (int num : arr) {
+    set.add(num);
+}
+
+int[] result = new int[set.size()];
+
+int index = 0;
+
+for (int num : set) {
+    result[index++] = num;
+}
+
+System.out.println(Arrays.toString(result));
+
+
+
+java 8
+int[] arr = {1, 2, 3, 2, 4, 3, 5};
+
+int[] result = Arrays.stream(arr)
+        .distinct()
+        .toArray();
+
+System.out.println(Arrays.toString(result));
+
+D. Complexity
+Solution	Time	Extra space
+LinkedHashSet	O(n) average	O(n)
+Java 8 distinct	O(n) average	O(n)
+
+E. Choice of solution
+Use LinkedHashSet for explicit collection-based logic.
+
+Use distinct() when writing Java 8 Stream code.
+

@@ -1,0 +1,72 @@
+Find common elements between two lists
+Problem statement
+
+Find the elements present in both lists.
+
+Input:
+List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+
+List<Integer> list2 = Arrays.asList(3, 4, 5, 6, 7);
+
+
+Expected output:
+[3, 4, 5]
+
+
+A. Approach and logic
+We need to identify which elements from the first list are also present in the second list.
+
+A simple approach:
+1. Iterate through the first list.
+2. Check whether the second list contains that element.
+3. If yes, add it to the result.
+4. Avoid adding duplicate elements.
+B. Plain Java – Optimized using HashSet
+List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+
+List<Integer> list2 = Arrays.asList(3, 4, 5, 6, 7);
+
+Set<Integer> set = new HashSet<>(list2);
+
+Set<Integer> common = new LinkedHashSet<>();
+
+for (Integer num : list1) {
+
+    if (set.contains(num)) {
+        common.add(num);
+    }
+}
+
+System.out.println(common);
+
+
+C. Java 8
+List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+
+List<Integer> list2 = Arrays.asList(3, 4, 5, 6, 7);
+
+Set<Integer> set = new HashSet<>(list2);
+
+List<Integer> common = list1.stream()
+        .filter(set::contains)
+        .distinct()
+        .collect(Collectors.toList());
+
+System.out.println(common);
+
+
+D. Complexity
+Let n be the size of the first list and m be the size of the second list.
+Solution	Time	Extra space
+Nested/list contains approach	O(n × m)	O(n)
+HashSet approach	O(n + m) average	O(m + n)
+Java 8 with HashSet	O(n + m) average	O(m + n)
+
+E. Choice of solution
+Use HashSet for large lists.
+
+Why?
+
+ArrayList.contains() takes O(n) in the worst case, while HashSet.contains() takes O(1) average time.
+
+This is a good example to demonstrate that selecting the right data structure can significantly improve performance.

@@ -1,0 +1,46 @@
+It represents the next position where a non-zero element should be placed.
+1. Traverse the array.
+2. Whenever a non-zero element is found, place it at arr[index].
+3. Increment index.
+4. After processing all non-zero elements, fill the remaining positions with zero.
+
+int[] arr = {0, 1, 0, 3, 12};
+
+int index = 0;
+
+for (int num : arr) {
+
+    if (num != 0) {
+        arr[index++] = num;
+    }
+}
+
+while (index < arr.length) {
+    arr[index++] = 0;
+}
+
+System.out.println(Arrays.toString(arr));
+
+
+java 8
+-------
+int[] arr = {0, 1, 0, 3, 12};
+
+int[] result = IntStream.concat(
+        Arrays.stream(arr).filter(n -> n != 0),
+        Arrays.stream(arr).filter(n -> n == 0)
+).toArray();
+
+System.out.println(Arrays.toString(result));
+
+
+E. Complexity
+Solution	Time	Extra space
+In-place approach	O(n)	O(1)
+Java 8	O(n)	O(n)
+
+F. Choice of solution
+Use the in-place approach.
+
+It is optimal in terms of time and auxiliary space.
+

@@ -1,0 +1,66 @@
+
+
+Use the two-pointer technique.
+- One pointer starts at index 0.
+- Another pointer starts at the last index.
+- Swap both elements.
+- Move the pointers towards each other.
+- Stop when they meet.
+
+import java.util.Arrays;
+
+public class ReverseArray {
+
+    public static void main(String[] args) {
+
+        int[] arr = {10, 20, 30, 40, 50};
+
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left < right) {
+
+            int temp = arr[left];
+
+            arr[left] = arr[right];
+
+            arr[right] = temp;
+
+            left++;
+            right--;
+        }
+
+        System.out.println(Arrays.toString(arr));
+    }
+}
+
+
+
+java8
+
+int[] arr = {10, 20, 30, 40, 50};
+
+int[] reversed = IntStream.range(0, arr.length)
+        .map(i -> arr[arr.length - 1 - i])
+        .toArray();
+
+System.out.println(Arrays.toString(reversed));
+
+
+
+E. Complexity
+Solution	Time	Extra space
+Two pointers	O(n)	O(1)
+Java 8	O(n)	O(n)
+
+F. Choice of solution
+Two pointers are better because they reverse the original array in place.
+
+The Java 8 version creates a new array.
+
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+int n 8
+int first 0
+int sec 1
+int third
+sop first
+sop second
+for int i 3, I <_n i++
+third = first + sec
+sop third
+first = sec
+sec = third
+
+
+
+import java.util.stream.Stream;
+
+public class FibonacciJava8 {
+    public static void main(String[] args) {
+        int n = 10; // Number of elements to print
+
+        Stream.iterate(new int[]{0, 1}, fib -> new int[]{fib[1], fib[0] + fib[1]})
+              .limit(n)
+              .map(fib -> fib[0])
+              .forEach(num -> System.out.print(num + " "));
+    }
+}
+
+
+
+
+public class FibonacciSeries {
+    public static void main(String[] args) {
+        int n = 10; // Number of terms to display
+        int firstTerm = 0;
+        int secondTerm = 1;
+
+        System.out.println("Fibonacci Series till " + n + " terms:");
+
+        for (int i = 1; i <= n; ++i) {
+            System.out.print(firstTerm + " ");
+
+            // Compute the next term
+            int nextTerm = firstTerm + secondTerm;
+            firstTerm = secondTerm;
+            secondTerm = nextTerm;
+        }
+    }
+}
